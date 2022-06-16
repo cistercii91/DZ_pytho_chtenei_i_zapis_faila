@@ -122,3 +122,46 @@ def custom_commands():
 
 custom_commands()
 
+# Тут начинается код по 3 заданию
+
+def open_file_zadanie3(file_name):
+  with open(file_name, 'r', encoding='utf-8') as file:
+    file_name_i = {}
+    name = str(file_name)
+    data_list = []
+    numer_line = 0
+    for lol in file:
+      numer_line += 1
+      data_list.append(lol.strip())
+    file_name_i[name] = [numer_line, data_list]
+    return name, numer_line, data_list
+
+
+def dictionary_preparation():
+  dict_file = {}
+
+  dict_file[open_file_zadanie3('1.txt')[0]] = [open_file_zadanie3('1.txt')[1], open_file_zadanie3('1.txt')[2]]
+  dict_file[open_file_zadanie3('2.txt')[0]] = [open_file_zadanie3('2.txt')[1], open_file_zadanie3('2.txt')[2]]
+  dict_file[open_file_zadanie3('3.txt')[0]] = [open_file_zadanie3('3.txt')[1], open_file_zadanie3('3.txt')[2]]
+
+  sorted_values = sorted(dict_file.values())
+  sorted_dict = {}
+  for i in sorted_values:
+      for k in dict_file.keys():
+          if dict_file[k] == i:
+              sorted_dict[k] = dict_file[k]
+              break
+  return sorted_dict
+
+
+def write_file():
+  with open('Файл_для_ДЗ', 'w', encoding='utf-8') as file:
+    x = dictionary_preparation()
+    for element in x:
+      file.write(element + '\n')
+      file.write(str(x.get(element)[0]) + '\n')
+      for element_element in x.get(element)[1]:
+        file.write(element_element + '\n')
+    return file
+
+write_file()
